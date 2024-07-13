@@ -1,0 +1,19 @@
+.search {
+  margin-bottom: 20px;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+  font-size: 20px;
+
+  background-color: #fff7ef;
+  border: 1px solid #c6c6c6;
+  border-radius: 10px;
+}
+.input {
+  height: 40px;
+  border: 1px solid #c6c6c6;
+  border-radius: 5px;
+  font-size: 16px;
+}

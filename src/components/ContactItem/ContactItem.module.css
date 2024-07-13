@@ -1,0 +1,42 @@
+.contact {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px;
+  padding-left: 20px;
+  border: 1px solid #c6c6c6;
+  border-radius: 10px;
+  text-align: left;
+
+  background-color: #f9f9f9;
+}
+.info {
+  display: flex;
+  flex-direction: column;
+}
+.nameDiv,
+.numDiv {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.contactField {
+  margin: 4px;
+  font-size: 24px;
+}
+.name {
+  font-weight: 600;
+}
+.ico {
+  color: #c6c6c6;
+  width: 20px;
+  height: 20px;
+}
+.btn {
+  font-size: 14px;
+  box-sizing: content-box;
+  background-color: #e0e0e0;
+  height: 20px;
+  padding-top: 10px;
+  padding-bottom: 12px;
+}
