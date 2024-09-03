@@ -1,0 +1,58 @@
+.header {
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+  height: 70px;
+  box-shadow: 0 5px 5px #0002;
+  background-color: #fffdf8;
+}
+.navList {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  height: 100%;
+}
+li {
+  display: flex;
+  align-items: center;
+}
+a {
+  text-decoration: none;
+}
+a:hover {
+  color: gray;
+}
+.usermenu {
+  margin-left: 100px;
+}
+.userpic {
+  height: 30px;
+  opacity: 0.5;
+}
+.userset {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.button {
+  color: #fff;
+  background-color: #8f73a4;
+  font-size: 20px;
+  height: 50px;
+  padding: 20px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px auto;
+  width: 100%;
+}
+.button:active {
+  opacity: 0.8;
+}
+.active {
+  color: #f2a623;
+}

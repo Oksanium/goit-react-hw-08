@@ -1,0 +1,40 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #fffa;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.box {
+  position: absolute;
+  width: 400px;
+  height: 200px;
+  background-color: #fff;
+  border-radius: 10px;
+  border: 1px solid #0003;
+  box-shadow: 0 10px 20px #0005;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+.btnSet {
+  display: flex;
+  gap: 20px;
+}
+.btn {
+  width: 150px;
+}
+.no {
+  background-color: #c197d1;
+}
+.yes {
+  background-color: #f3b870;
+}

@@ -1,33 +1,52 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchContactsThunk } from "./redux/contactsOps";
-import { selectIsError, selectPending } from "./redux/contactsSlice";
+import { Route, Routes } from "react-router-dom";
+import { PrivateRoute } from "./routes/PrivateRoute";
+import { RestrictedRoute } from "./routes/RestrictedRoute";
+
+import Layout from "./components/Layout/Layout";
+import ContactsPage from "./pages/ContactsPage";
+import LoginPage from "./pages/LoginPage";
+import RegistrationPage from "./pages/RegistrationPage ";
+import Home from "./pages/Home";
 
 import "./App.css";
+import { refreshThunk } from "./redux/auth/operations";
+import { selectRefreshPending } from "./redux/auth/selectors";
 
-import ContactForm from "./components/ContactForm/ContactForm";
-import SearchBox from "./components/SearchBox/SearchBox";
-import ContactList from "./components/ContactList/ContactList";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const dispatch = useDispatch();
-  const pending = useSelector(selectPending);
-  const error = useSelector(selectIsError);
 
   useEffect(() => {
-    dispatch(fetchContactsThunk());
+    dispatch(refreshThunk());
   }, [dispatch]);
 
-  return (
+  const refreshPending = useSelector(selectRefreshPending);
+
+  return refreshPending ? (
+    <p> Loading...</p>
+  ) : (
     <div>
-      <h1>Phonebook</h1>
-      {pending.isLoading && <p>Loading contacts...</p>}
-      {pending.deletePending && <p>Deleting...</p>}
-      {pending.addPending && <p>Adding...</p>}
-      {error && <p>{error}</p>}
-      <ContactForm />
-      <SearchBox />
-      <ContactList />
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<PrivateRoute component={<Home />} />}></Route>
+          <Route
+            path="/contacts"
+            element={<PrivateRoute component={<ContactsPage />} />}
+          ></Route>
+          <Route
+            path="/login"
+            element={<RestrictedRoute component={<LoginPage />} />}
+          ></Route>
+          <Route
+            path="/register"
+            element={<RestrictedRoute component={<RegistrationPage />} />}
+          ></Route>
+        </Route>
+      </Routes>
+      <Toaster position="top-right" />
     </div>
   );
 }

@@ -3,7 +3,9 @@ import {
   fetchContactsThunk,
   addContactThunk,
   deleteContactThunk,
-} from "./contactsOps";
+} from "./operations";
+import { logoutThunk } from "../auth/operations";
+import toast from "react-hot-toast";
 
 const initialState = {
   items: [],
@@ -13,19 +15,33 @@ const initialState = {
     addPending: false,
   },
   error: null,
+  showModal: false,
+  itemId: "",
 };
 
 const slice = createSlice({
   name: "contacts",
+
   initialState,
-  selectors: {
-    selectContacts: (state) => state.items,
-    selectPending: (state) => state.pending,
-    selectIsError: (state) => state.isError,
+
+  reducers: {
+    modalOn: {
+      reducer(state, action) {
+        state.showModal = true;
+        state.itemId = action.payload;
+      },
+    },
+    modalOff: {
+      reducer(state) {
+        state.showModal = false;
+        state.itemId = "";
+      },
+    },
   },
+
   extraReducers: (builder) => {
     builder
-      .addCase(fetchContactsThunk.pending, (state, action) => {
+      .addCase(fetchContactsThunk.pending, (state) => {
         state.pending.isLoading = true;
       })
       .addCase(fetchContactsThunk.fulfilled, (state, action) => {
@@ -37,33 +53,39 @@ const slice = createSlice({
         state.pending.isLoading = false;
         state.error = action.payload;
       })
-      .addCase(addContactThunk.pending, (state, action) => {
+      .addCase(addContactThunk.pending, (state) => {
         state.pending.addPending = true;
       })
       .addCase(addContactThunk.fulfilled, (state, action) => {
         state.items.push(action.payload);
         state.error = null;
         state.pending.addPending = false;
+        toast.success("Successfully created!");
       })
       .addCase(addContactThunk.rejected, (state, action) => {
         state.pending.addPending = false;
         state.error = action.payload;
       })
-      .addCase(deleteContactThunk.pending, (state, action) => {
+      .addCase(deleteContactThunk.pending, (state) => {
         state.pending.deletePending = true;
       })
       .addCase(deleteContactThunk.fulfilled, (state, action) => {
         state.items = state.items.filter((item) => item.id !== action.payload);
         state.error = null;
         state.pending.deletePending = false;
+        state.itemId = "";
+        state.showModal = false;
+        toast.success("Contact deleted");
       })
       .addCase(deleteContactThunk.rejected, (state, action) => {
         state.pending.deletePending = false;
         state.error = action.payload;
+      })
+      .addCase(logoutThunk.fulfilled, () => {
+        return initialState;
       });
   },
 });
 
 export const contactsReducer = slice.reducer;
-export const { addContact, deleteContact } = slice.actions;
-export const { selectContacts, selectIsError, selectPending } = slice.selectors;
+export const { addContact, deleteContact, modalOn, modalOff } = slice.actions;

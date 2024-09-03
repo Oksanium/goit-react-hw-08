@@ -2,10 +2,14 @@ import s from "./ContactItem.module.css";
 import { IoPersonSharp } from "react-icons/io5";
 import { IoMdCall } from "react-icons/io";
 import { useDispatch } from "react-redux";
-import { deleteContactThunk } from "../../redux/contactsOps";
+import { modalOn } from "../../redux/contacts/slice";
 
 export default function ContactItem({ contact, id }) {
   const dispatch = useDispatch();
+
+  function handleDelete() {
+    dispatch(modalOn(id));
+  }
 
   return (
     <div className={s.contact}>
@@ -20,13 +24,7 @@ export default function ContactItem({ contact, id }) {
         </div>
       </div>
 
-      <button
-        onClick={() => {
-          dispatch(deleteContactThunk(id));
-        }}
-        className={s.btn}
-        id={id}
-      >
+      <button onClick={handleDelete} className={s.btn} id={id}>
         DELETE
       </button>
     </div>

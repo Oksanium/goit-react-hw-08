@@ -3,7 +3,7 @@ import s from "./SearchBox.module.css";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
-import { changeFilter, selectFilter } from "../../redux/filtersSlice";
+import { changeFilter, selectFilter } from "../../redux/filters/slice";
 
 export default function SearchBox() {
   const query = useSelector(selectFilter);
